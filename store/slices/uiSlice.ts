@@ -24,7 +24,7 @@ const uiSlice = createSlice({
     closeCreateListModal(state) {
       state.createListModalOpen = false;
     },
-    openEditListModal(state, { payload }: { payload: string }) {
+    openEditListModal(state, { payload }: { payload: number }) {
       state.editListModalOpen = true;
       state.editingListId = payload;
     },
@@ -38,7 +38,7 @@ const uiSlice = createSlice({
     closeCreateTaskModal(state) {
       state.createTaskModalOpen = false;
     },
-    openEditTaskModal(state, { payload }: { payload: string }) {
+    openEditTaskModal(state, { payload }: { payload: number }) {
       state.editTaskModalOpen = true;
       state.editingTaskId = payload;
     },
@@ -46,7 +46,7 @@ const uiSlice = createSlice({
       state.editTaskModalOpen = false;
       state.editingTaskId = null;
     },
-    openDeleteConfirm(state, { payload }: { payload: { type: 'list' | 'task'; id: string } }) {
+    openDeleteConfirm(state, { payload }: { payload: { type: 'list' | 'task'; id: number } }) {
       state.deleteConfirmOpen = true;
       state.deleteTarget = payload;
     },

@@ -103,8 +103,9 @@ const tasksSlice = createSlice({
       .addCase(createTask.pending, state => { state.submitting = true; })
       .addCase(createTask.fulfilled, (state, { payload }) => {
         state.submitting = false;
-        if (!state.tasksByListId[payload.listId]) state.tasksByListId[payload.listId] = [];
-        state.tasksByListId[payload.listId].unshift(payload);
+        const key = String(payload.todoListId);
+        if (!state.tasksByListId[key]) state.tasksByListId[key] = [];
+        state.tasksByListId[key].unshift(payload);
       })
       .addCase(createTask.rejected, (state, { payload }) => {
         state.submitting = false;
@@ -113,7 +114,7 @@ const tasksSlice = createSlice({
       .addCase(updateTask.pending, state => { state.submitting = true; })
       .addCase(updateTask.fulfilled, (state, { payload }) => {
         state.submitting = false;
-        const tasks = state.tasksByListId[payload.listId];
+        const tasks = state.tasksByListId[String(payload.todoListId)];
         if (tasks) {
           const idx = tasks.findIndex(t => t.id === payload.id);
           if (idx !== -1) tasks[idx] = payload;
@@ -126,11 +127,11 @@ const tasksSlice = createSlice({
       .addCase(deleteTask.fulfilled, (state, { payload }) => {
         const tasks = state.tasksByListId[payload.listId];
         if (tasks) {
-          state.tasksByListId[payload.listId] = tasks.filter(t => t.id !== payload.taskId);
+          state.tasksByListId[payload.listId] = tasks.filter(t => t.id !== Number(payload.taskId));
         }
       })
       .addCase(toggleTask.fulfilled, (state, { payload }) => {
-        const tasks = state.tasksByListId[payload.listId];
+        const tasks = state.tasksByListId[String(payload.todoListId)];
         if (tasks) {
           const idx = tasks.findIndex(t => t.id === payload.id);
           if (idx !== -1) tasks[idx] = payload;

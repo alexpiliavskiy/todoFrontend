@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { closeDeleteConfirm } from '@/store/slices/uiSlice';
 import { deleteList } from '@/store/slices/todoListsSlice';
 import { deleteTask } from '@/store/slices/tasksSlice';
-import { updateListCounts } from '@/store/slices/todoListsSlice';
 
 export default function DeleteConfirmHandler() {
   const dispatch = useAppDispatch();
@@ -24,15 +23,16 @@ export default function DeleteConfirmHandler() {
     setLoading(true);
     try {
       if (deleteTarget.type === 'list') {
-        await dispatch(deleteList({ token, listId: deleteTarget.id })).unwrap();
+        await dispatch(deleteList({ token, listId: String(deleteTarget.id) })).unwrap();
         router.push('/dashboard');
       } else {
         const taskToDelete = tasks.find(t => t.id === deleteTarget.id);
         if (!taskToDelete || !selectedListId) return;
-        await dispatch(deleteTask({ token, listId: taskToDelete.listId, taskId: deleteTarget.id })).unwrap();
-        const remaining = tasks.filter(t => t.id !== deleteTarget.id);
-        const completed = remaining.filter(t => t.status === 'completed').length;
-        dispatch(updateListCounts({ listId: selectedListId, taskCount: remaining.length, completedCount: completed }));
+        await dispatch(deleteTask({
+          token,
+          listId: String(taskToDelete.todoListId),
+          taskId: String(deleteTarget.id),
+        })).unwrap();
       }
       dispatch(closeDeleteConfirm());
     } catch {

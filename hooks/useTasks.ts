@@ -13,7 +13,7 @@ export function useFilteredTasks(listId: string | null, filter: TaskFilter) {
   const tasks = useTasks(listId);
   return useMemo(() => {
     if (filter === 'all') return tasks;
-    return tasks.filter(t => t.status === filter);
+    return tasks.filter(t => filter === 'completed' ? t.isDone : !t.isDone);
   }, [tasks, filter]);
 }
 

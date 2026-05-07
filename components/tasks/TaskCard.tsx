@@ -3,7 +3,6 @@ import type { Role, Task } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { toggleTask } from '@/store/slices/tasksSlice';
 import { openDeleteConfirm, openEditTaskModal } from '@/store/slices/uiSlice';
-import { updateListCounts } from '@/store/slices/todoListsSlice';
 
 interface TaskCardProps {
   task: Task;
@@ -13,25 +12,14 @@ interface TaskCardProps {
 export default function TaskCard({ task, role }: TaskCardProps) {
   const dispatch = useAppDispatch();
   const token = useAppSelector(state => state.auth.token);
-  const selectedListId = useAppSelector(state => state.todoLists.selectedListId);
-  const tasks = useAppSelector(state =>
-    selectedListId ? (state.tasks.tasksByListId[selectedListId] ?? []) : []
-  );
   const submitting = useAppSelector(state => state.tasks.submitting);
 
   const isAdmin = role === 'admin';
-  const isCompleted = task.status === 'completed';
+  const isCompleted = task.isDone;
 
   async function handleToggle() {
     if (!token) return;
-    await dispatch(toggleTask({ token, listId: task.listId, taskId: task.id }));
-    const updatedTasks = tasks.map(t =>
-      t.id === task.id ? { ...t, status: isCompleted ? ('pending' as const) : ('completed' as const) } : t
-    );
-    const completed = updatedTasks.filter(t => t.status === 'completed').length;
-    if (selectedListId) {
-      dispatch(updateListCounts({ listId: selectedListId, taskCount: updatedTasks.length, completedCount: completed }));
-    }
+    dispatch(toggleTask({ token, listId: String(task.todoListId), taskId: String(task.id) }));
   }
 
   function handleEdit() {

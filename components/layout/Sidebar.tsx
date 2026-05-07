@@ -1,5 +1,5 @@
 'use client';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectList } from '@/store/slices/todoListsSlice';
 import { logout } from '@/store/slices/authSlice';
@@ -11,9 +11,12 @@ import Link from "next/link";
 function ListItem({ list, isSelected, isAdmin }: { list: TodoList; isSelected: boolean; isAdmin: boolean }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const listTasks = useAppSelector(state => state.tasks.tasksByListId[String(list.id)] ?? []);
+  const taskCount = listTasks.length;
+  const completedCount = listTasks.filter(t => t.isDone).length;
 
   function handleSelect() {
-    dispatch(selectList(list.id));
+    dispatch(selectList(String(list.id)));
     dispatch(closeSidebar());
     router.push(`/dashboard/list/${list.id}`);
   }
@@ -34,7 +37,7 @@ function ListItem({ list, isSelected, isAdmin }: { list: TodoList; isSelected: b
         <p className={`truncate text-sm font-medium ${isSelected ? 'text-white' : ''}`}>{list.name}</p>
         <div className="flex items-center gap-2 mt-1">
           <span className="text-xs text-slate-500 shrink-0">
-            {list.completedCount}/{list.taskCount}
+            {completedCount}/{taskCount}
           </span>
         </div>
       </div>
@@ -72,7 +75,6 @@ export default function Sidebar() {
   const { lists, loading, selectedListId } = useAppSelector(state => state.todoLists);
   const user = useAppSelector(state => state.auth.user);
   const sidebarOpen = useAppSelector(state => state.ui.sidebarOpen);
-  const currentUserId = user?.id;
 
   function handleLogout() {
     dispatch(logout());
@@ -80,13 +82,12 @@ export default function Sidebar() {
   }
 
   const listItems = lists.map(list => {
-    const member = list.members.find(m => m.userId === currentUserId);
-    const isAdmin = member?.role === 'admin';
+    const isAdmin = list.members?.[0]?.role === 'admin';
     return (
       <ListItem
         key={list.id}
         list={list}
-        isSelected={list.id === selectedListId}
+        isSelected={String(list.id) === selectedListId}
         isAdmin={isAdmin}
       />
     );
@@ -94,14 +95,14 @@ export default function Sidebar() {
 
   const sidebarContent = (
     <div className="flex h-full flex-col">
-      <Link href='/' className="flex items-center gap-2 px-4 py-5 border-b border-slate-700/50">
+      <div className="flex items-center gap-2 px-4 py-5 border-b border-slate-700/50">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
           <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
           </svg>
         </div>
         <span className="font-semibold text-white">Task App</span>
-      </Link>
+      </div>
 
       <div className="flex-1 overflow-y-auto px-3 py-4">
         <div className="flex items-center justify-between px-1 mb-2">

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab68ee2b-acc2-499c-8c06-53e6a868fd80" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
+    <list default="true" id="ab68ee2b-acc2-499c-8c06-53e6a868fd80" name="Changes" comment="first commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/dashboard/list/[listId]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/dashboard/list/[listId]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/layout/DeleteConfirmHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/DeleteConfirmHandler.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/layout/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/tasks/CreateTaskModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/tasks/CreateTaskModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/tasks/EditTaskModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/tasks/EditTaskModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/tasks/TaskCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/tasks/TaskCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useTasks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useTasks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useTodoLists.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useTodoLists.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/authService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/authService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/taskService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/taskService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/todoListService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/todoListService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/slices/tasksSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/slices/tasksSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/slices/todoListsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/slices/todoListsSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/slices/uiSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/store/slices/uiSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,10 +29,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3DOBd04ceMlRsK8GCow7mBV0RNn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,12 +42,16 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "javascript.preferred.runtime.type.id": "node",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\alexp\\Documents\\projects\\todoAppClient\\test\\node_modules\\typescript\\lib",
+    "npm.Next.js: server-side.executor": "Run",
+    "ts.external.directory.path": "C:\\Users\\alexp\\Documents\\projects\\todoApp\\todoFrontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -43,6 +59,21 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\alexp\Documents\projects\todoAppClient\test\src" />
     </key>
+  </component>
+  <component name="RunManager" selected="npm.Next.js: server-side">
+    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="Next.js: server-side" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -58,11 +89,34 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1778143318976</updated>
-      <workItem from="1778143320949" duration="4916000" />
+      <workItem from="1778143320949" duration="5872000" />
+      <workItem from="1778150779953" duration="4097000" />
+      <workItem from="1778154990869" duration="105000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1778148273958</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1778148273958</updated>
+    </task>
+    <task id="LOCAL-00002" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1778148279330</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1778148279330</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
   </component>
 </project>

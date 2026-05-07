@@ -36,8 +36,8 @@ export default function ListPage() {
     }
   }, [token, listId, dispatch]);
 
-  const pendingCount = allTasks.filter(t => t.status === 'pending').length;
-  const completedCount = allTasks.filter(t => t.status === 'completed').length;
+  const pendingCount = allTasks.filter(t => !t.isDone).length;
+  const completedCount = allTasks.filter(t => t.isDone).length;
   const totalCount = allTasks.length;
 
   return (

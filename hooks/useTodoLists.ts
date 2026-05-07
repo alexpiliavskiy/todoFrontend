@@ -8,18 +8,16 @@ export function useTodoLists() {
 export function useSelectedList() {
   return useAppSelector(state => {
     const { lists, selectedListId } = state.todoLists;
-    return lists.find(l => l.id === selectedListId) ?? null;
+    return lists.find(l => String(l.id) === selectedListId) ?? null;
   });
 }
 
 export function useCurrentUserRole(): Role {
   return useAppSelector(state => {
     const { lists, selectedListId } = state.todoLists;
-    const userId = state.auth.user?.id;
-    if (!userId || !selectedListId) return 'viewer';
-    const list = lists.find(l => l.id === selectedListId);
+    if (!selectedListId) return 'viewer';
+    const list = lists.find(li => String(li.id) === selectedListId);
     if (!list) return 'viewer';
-    const member = list.members.find(m => m.userId === userId);
-    return member?.role ?? 'viewer';
+    return list.members?.[0]?.role ?? 'viewer';
   });
 }

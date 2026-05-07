@@ -66,13 +66,6 @@ const todoListsSlice = createSlice({
     clearListsError(state) {
       state.error = null;
     },
-    updateListCounts(state, { payload }: { payload: { listId: string; taskCount: number; completedCount: number } }) {
-      const list = state.lists.find(l => l.id === payload.listId);
-      if (list) {
-        list.taskCount = payload.taskCount;
-        list.completedCount = payload.completedCount;
-      }
-    },
   },
   extraReducers: builder => {
     builder
@@ -81,7 +74,7 @@ const todoListsSlice = createSlice({
         state.loading = false;
         state.lists = payload;
         if (!state.selectedListId && payload.length > 0) {
-          state.selectedListId = payload[0].id;
+          state.selectedListId = String(payload[0].id);
         }
       })
       .addCase(fetchLists.rejected, (state, { payload }) => {
@@ -90,20 +83,20 @@ const todoListsSlice = createSlice({
       })
       .addCase(createList.fulfilled, (state, { payload }) => {
         state.lists.unshift(payload);
-        state.selectedListId = payload.id;
+        state.selectedListId = String(payload.id);
       })
       .addCase(updateList.fulfilled, (state, { payload }) => {
         const idx = state.lists.findIndex(l => l.id === payload.id);
         if (idx !== -1) state.lists[idx] = payload;
       })
       .addCase(deleteList.fulfilled, (state, { payload }) => {
-        state.lists = state.lists.filter(l => l.id !== payload);
+        state.lists = state.lists.filter(l => String(l.id) !== payload);
         if (state.selectedListId === payload) {
-          state.selectedListId = state.lists.length > 0 ? state.lists[0].id : null;
+          state.selectedListId = state.lists.length > 0 ? String(state.lists[0].id) : null;
         }
       });
   },
 });
 
-export const { selectList, clearListsError, updateListCounts } = todoListsSlice.actions;
+export const { selectList, clearListsError } = todoListsSlice.actions;
 export default todoListsSlice.reducer;

@@ -1,9 +1,8 @@
 export type Role = 'admin' | 'viewer';
-export type TaskStatus = 'pending' | 'completed';
 export type TaskFilter = 'all' | 'pending' | 'completed';
 
 export interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
 }
@@ -13,29 +12,35 @@ export interface AuthToken {
   user: User;
 }
 
-export interface ListMember {
-  userId: string;
-  name: string;
-  email: string;
+// Shape returned inside TodoList.members (GET /api/lists)
+export interface ListMemberBrief {
   role: Role;
 }
 
+// Shape returned by GET /api/lists/:id/members
+export interface ListMember {
+  id: number;
+  todoListId: number;
+  userId: number;
+  role: Role;
+  user: { id: number; name: string; email: string };
+}
+
 export interface TodoList {
-  id: string;
+  id: number;
   name: string;
-  ownerId: string;
-  members: ListMember[];
-  taskCount: number;
-  completedCount: number;
+  members: ListMemberBrief[];
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface Task {
-  id: string;
-  listId: string;
+  id: number;
+  todoListId: number;
   title: string;
-  description: string;
-  status: TaskStatus;
+  description: string | null;
+  isDone: boolean;
+  createdBy: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -50,13 +55,13 @@ export interface AuthState {
 
 export interface TodoListsState {
   lists: TodoList[];
-  selectedListId: string | null;
+  selectedListId: string | null; // string for URL param compatibility
   loading: boolean;
   error: string | null;
 }
 
 export interface TasksState {
-  tasksByListId: Record<string, Task[]>;
+  tasksByListId: Record<string, Task[]>; // keyed by String(listId)
   loading: boolean;
   submitting: boolean;
   error: string | null;
@@ -65,12 +70,12 @@ export interface TasksState {
 export interface UIState {
   createListModalOpen: boolean;
   editListModalOpen: boolean;
-  editingListId: string | null;
+  editingListId: number | null;
   createTaskModalOpen: boolean;
   editTaskModalOpen: boolean;
-  editingTaskId: string | null;
+  editingTaskId: number | null;
   deleteConfirmOpen: boolean;
-  deleteTarget: { type: 'list' | 'task'; id: string } | null;
+  deleteTarget: { type: 'list' | 'task'; id: number } | null;
   taskFilter: TaskFilter;
   sidebarOpen: boolean;
 }
@@ -91,7 +96,7 @@ export interface CreateListPayload {
 }
 
 export interface UpdateListPayload {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -102,9 +107,8 @@ export interface CreateTaskPayload {
 }
 
 export interface UpdateTaskPayload {
-  id: string;
+  id: number;
   listId: string;
   title?: string;
   description?: string;
-  status?: TaskStatus;
 }

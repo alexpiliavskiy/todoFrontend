@@ -7,16 +7,12 @@ import Button from '@/components/ui/Button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { createTask } from '@/store/slices/tasksSlice';
 import { closeCreateTaskModal } from '@/store/slices/uiSlice';
-import { updateListCounts } from '@/store/slices/todoListsSlice';
 
 export default function CreateTaskModal() {
   const dispatch = useAppDispatch();
   const open = useAppSelector(state => state.ui.createTaskModalOpen);
   const token = useAppSelector(state => state.auth.token);
   const selectedListId = useAppSelector(state => state.todoLists.selectedListId);
-  const tasks = useAppSelector(state =>
-    selectedListId ? (state.tasks.tasksByListId[selectedListId] ?? []) : []
-  );
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -37,9 +33,6 @@ export default function CreateTaskModal() {
     setLoading(true);
     try {
       await dispatch(createTask({ token, payload: { listId: selectedListId, title: title.trim(), description: description.trim() } })).unwrap();
-      const newTotal = tasks.length + 1;
-      const completed = tasks.filter(t => t.status === 'completed').length;
-      dispatch(updateListCounts({ listId: selectedListId, taskCount: newTotal, completedCount: completed }));
       handleClose();
     } catch {
       // error handled in slice

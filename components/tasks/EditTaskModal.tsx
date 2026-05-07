@@ -27,7 +27,7 @@ export default function EditTaskModal() {
   useEffect(() => {
     if (task) {
       setTitle(task.title);
-      setDescription(task.description);
+      setDescription(task.description ?? '');
     }
   }, [task]);
 
